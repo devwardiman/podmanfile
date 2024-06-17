@@ -1,0 +1,101 @@
+# Jadikan dalam komentar baris dibawah ini jika anda ingin mengaktifkan SSL dan mengalihkan HTTP ke HTTPS
+server {
+    listen 80;
+    server_name localhost;
+
+    # Adjust root path based on your application location within the container
+    root /var/www/html;
+
+    index index.php index.htm index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+  
+    location ~ \.php$ {
+	    # try_files $uri $uri/ =404;
+        # fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        # fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        # fastcgi_index index.php;
+        # include fastcgi.conf;
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+}
+# @akhir dalam komentar
+
+# Buka komentar baris dibawah ini jika ingin mengaktifkan SSL
+# server {
+#     listen 443 ssl;
+#     server_name localhost;
+
+#     ssl_certificate /etc/nginx/ssl/localhost.crt;
+#     ssl_certificate_key /etc/nginx/ssl/localhost.key;
+
+#     # Adjust root path based on your application location within the container
+#     root /var/www/html;
+
+#     index index.php index.htm index.html;
+
+#     location / {
+#         try_files $uri $uri/ /index.php?$query_string;
+#     }
+  
+#     location ~ \.php$ {
+# 	    # try_files $uri $uri/ =404;
+#         # fastcgi_split_path_info ^(.+\.php)(/.+)$;
+#         # fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+#         # fastcgi_index index.php;
+#         # include fastcgi.conf;
+#         try_files $uri =404;
+#         fastcgi_split_path_info ^(.+\.php)(/.+)$;
+#         fastcgi_pass 127.0.0.1:9000;
+#         fastcgi_index index.php;
+#         include fastcgi_params;
+#         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#         fastcgi_param PATH_INFO $fastcgi_path_info;
+#     }
+# }
+# @akhir buka komentar
+
+# Buka komentar baris dibawah ini jika ingin mengalihkan HTTP ke HTTPS
+# server {
+#     listen 80;
+#     server_name localhost;
+#     return 301 https://$host$request_uri;
+# }
+# @akhir buka komentar
+
+# Contoh konfigurasi untuk project laravel
+# server {
+#     listen 80;
+#     server_name laravel.test;
+
+#     root /var/www/example-app/public;
+
+#     index index.php index.htm index.html;
+
+#     location / {
+#         try_files $uri $uri/ /index.php?$query_string;
+#     }
+
+#     location ~ \.php$ {
+# 	    # try_files $uri $uri/ =404;
+#         # fastcgi_split_path_info ^(.+\.php)(/.+)$;
+#         # fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+#         # fastcgi_index index.php;
+#         # include fastcgi.conf;
+#         try_files $uri =404;
+#         fastcgi_split_path_info ^(.+\.php)(/.+)$;
+#         fastcgi_pass 127.0.0.1:9000;
+#         fastcgi_index index.php;
+#         include fastcgi_params;
+#         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#         fastcgi_param PATH_INFO $fastcgi_path_info;
+#     }
+# }
