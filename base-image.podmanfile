@@ -3,11 +3,13 @@ FROM alpine:latest as base-perakit
 
 LABEL maintainer devwardiman <devwardiman@gmail.com>
 
-COPY /etc/mariadb/alpine.sh /app/mariadb/alpine.sh
-COPY /etc/mariadb/ubuntu.sh /app/mariadb/ubuntu.sh
-
 # Copy the Nginx configuration file into the container
 COPY /etc/nginx/nginx.conf /app/nginx/nginx.conf
+
+# Copy the MariaDB configuration file into the container
+ADD /etc/mariadb/ /app/mariadb/
+
+# Copy the Supervisor configuration file into the container
 ADD /etc/supervisor/ /app/supervisor/
 
 # Set up working directory

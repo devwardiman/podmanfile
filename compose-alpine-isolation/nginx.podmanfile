@@ -1,0 +1,24 @@
+# Use Base Image as multi-stage build
+FROM base-perakit:latest as builder
+
+# Use Alpine Linux as the base image
+FROM alpine:latest
+
+LABEL maintainer devwardiman <devwardiman@gmail.com>
+
+# Install Nginx
+RUN apk add --no-cache bash nginx
+
+# Create a directory for Nginx run and log files
+RUN mkdir -p /run/nginx && \
+    mkdir -p /var/log/nginx && \
+    mkdir -p /etc/nginx/sites-available && \
+    mkdir -p /etc/nginx/sites-enabled
+
+# Copy the Nginx configuration file into the container
+COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
+
+# create symbolic link for default site available for nginx
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+CMD nginx -g 'daemon off;' && tail -f /dev/null

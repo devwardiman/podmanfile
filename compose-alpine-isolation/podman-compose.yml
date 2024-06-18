@@ -1,0 +1,74 @@
+version: '3.7'
+
+services:
+    php:
+        image: localhost/app-phpfpm
+        volumes:
+            - ../www:/var/www
+            - ../etc/php/alpine-fpm-pool:/etc/php83/php-fpm.d
+        working_dir: /var/www
+        ports:
+            - '9000:9000'
+        networks:
+            perakit_network:
+                ipv4_address: 172.18.0.2
+    nodejs:
+        image: localhost/app-nodejs
+        volumes:
+            - ../www:/var/www
+        working_dir: /var/www
+        # ports:
+        #     - '5173:5173'
+        networks:
+            perakit_network:
+                ipv4_address: 172.18.0.3
+    nginx:
+        image: localhost/app-nginx
+        depends_on:
+            - php
+            - nodejs
+        volumes:
+            - ../www:/var/www
+            - ../etc/nginx/sites-available:/etc/nginx/sites-available
+            - ../etc/nginx/ssl:/etc/nginx/ssl
+        ports:
+            - '80:80'
+            # - '443:443'
+            # - '8080:8080'
+            # - '8090:8090'
+        extra_hosts:
+            - localhost:127.0.0.1
+            # - laravel.test:127.0.0.1
+        working_dir: /var/www
+        networks:
+            perakit_network:
+                ipv4_address: 172.18.0.4
+    mysql:
+        image: localhost/app-mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: [Enter_root_password]
+            MYSQL_DATABASE: [Enter_database_name]
+            MYSQL_USER: [Enter_user_name]
+            MYSQL_PASSWORD: [Enter_user_password]
+        ports:
+            - '3306:3306'
+        expose:
+            - '3306'
+        volumes:
+            - mysql-storage:/var/lib/mysql
+        restart: always
+        networks:
+            perakit_network:
+                ipv4_address: 172.18.0.5
+volumes:
+    mysql-storage:
+networks:
+    perakit_network:
+        name: perakit_network
+        driver: bridge
+        ipam:
+            driver: default
+            options:
+                driver: host-local
+            config:
+                - subnet: 172.18.0.0/16

@@ -1,0 +1,19 @@
+# Use Alpine Linux as the base image
+FROM alpine:latest
+
+LABEL maintainer devwardiman <devwardiman@gmail.com>
+
+# Update and upgrade the package manager
+RUN apk update && apk upgrade
+
+# Install Node.js and npm
+RUN apk add --no-cache bash nodejs-current npm
+
+# Verify Node.js installation
+RUN node -v
+RUN npm -v
+
+# Install Yarn globally
+RUN npm install --global yarn
+
+CMD tail -f /dev/null

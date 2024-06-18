@@ -1,0 +1,26 @@
+# Use Alpine Linux as the base image
+FROM alpine:latest
+
+LABEL maintainer devwardiman <devwardiman@gmail.com>
+
+# Update package list and upgrade existing packages
+RUN apk update && apk upgrade
+
+# Install PHP 83 and common extensions
+RUN apk add --no-cache php83 php83-cli php83-fpm \
+    php83-curl php83-fileinfo php83-fileinfo \
+    php83-pdo php83-pdo_mysql php83-mbstring \
+    php83-tokenizer php83-xml php83-ctype \
+    php83-json php83-openssl php83-phar \
+    php83-zip php83-gd php83-dom \
+    php83-session php83-simplexml php83-sqlite3 \
+    php83-intl php83-xmlwriter
+
+# Install Composer globally
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && php -r "unlink('composer-setup.php');"
+
+# Expose port 9000 and start php-fpm server
+# EXPOSE 9000
+CMD ["php83-fpm", "-F"]

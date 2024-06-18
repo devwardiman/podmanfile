@@ -52,7 +52,8 @@ COPY --from=builder /app/mariadb/ubuntu.sh /scripts/run.sh
 # Create a directory for scripts
 RUN mkdir /docker-entrypoint-initdb.d && \
     mkdir /scripts/pre-exec.d && \
-    mkdir /scripts/pre-init.d
+    mkdir /scripts/pre-init.d && \
+    chmod -R 755 /scripts
 
 # Create a directory for Nginx run and log files
 RUN mkdir -p /var/log/supervisor && \
@@ -67,8 +68,7 @@ RUN mkdir -p /var/log/supervisor && \
 #     addgroup user www-data
 
 # Set permissions group www-data
-RUN chmod -R 755 /scripts && \
-    chown -R :www-data /var/www/html && \
+RUN chown -R :www-data /var/www/html && \
     chmod -R ugo+rw /var/www/html
 # RUN chmod -R g+w /var/www/html
 

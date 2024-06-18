@@ -20,7 +20,10 @@ server {
         # include fastcgi.conf;
         try_files $uri =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        # One containers
         fastcgi_pass 127.0.0.1:9000;
+        # Isolated container
+        # fastcgi_pass 172.18.0.3:9000;
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
