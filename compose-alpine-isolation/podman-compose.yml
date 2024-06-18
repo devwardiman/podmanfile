@@ -29,6 +29,7 @@ services:
             - nodejs
         volumes:
             - ../www:/var/www
+            - ../etc/nginx/http.d:/etc/nginx/http.d
             - ../etc/nginx/sites-available:/etc/nginx/sites-available
             - ../etc/nginx/ssl:/etc/nginx/ssl
         ports:

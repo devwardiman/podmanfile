@@ -5,6 +5,7 @@ services:
         build: .
         volumes:
             - ../www:/var/www
+            - ../etc/nginx/http.d:/etc/nginx/http.d
             - ../etc/nginx/sites-available:/etc/nginx/sites-available
             - ../etc/nginx/ssl:/etc/nginx/ssl
             - ../etc/php/alpine-fpm-pool:/etc/php83/php-fpm.d

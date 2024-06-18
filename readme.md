@@ -92,7 +92,7 @@ isi sesuai kebutuhan anda
 
 Setelah sertifikat ssl terbuat pindahkan file .crt dan .key ke dalam folder _etc\nginx\ssl_
 
-Buka file konfigurasi default nginx di _etc\nginx\sites-available\default_
+Buka file konfigurasi localhost nginx di _etc\nginx\http.d\localhost.conf_
 Ikuti petunjuk yang ada di-dalam file tersebut
 
 Lanjut Buka file _podman-compose.yml_ dan hilangkan tanda pagar dibawah ports: # -433:433 jadi akan seperti dibawah dan pastikan spasi tab sesuai

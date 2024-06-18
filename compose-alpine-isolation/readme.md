@@ -3,7 +3,7 @@
 ### 🔥 Setup
 
 Sebelum membuat Base-Image isolated container perlu diperhatikan konfigurasi di
-nginx ubah _fastcgi_pass_ file _etc\nginx\sites-available\default_ seperti contoh dibawah
+nginx ubah _fastcgi_pass_ file _etc\nginx\http.d\localhost.conf_ seperti contoh dibawah
 
 ```
 location ~ \.php$ {

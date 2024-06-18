@@ -68,12 +68,4 @@ RUN chown -R :www-data /var/www/html && \
 COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/supervisor/alpine.conf /etc/supervisord.conf
 
-# create symbolic link for default site available for nginx
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-# VOLUME ["/var/lib/mysql"]
-
-# Set up working directory
-WORKDIR /var/www
-
 ENTRYPOINT ["supervisord", "--nodaemon", "--configuration", "/etc/supervisord.conf"]

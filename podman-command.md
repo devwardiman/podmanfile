@@ -27,7 +27,7 @@ podman pull alpine:latest
 podman run -it -e HI=jitcontainer alpine:latest
 ```
 
--   Running existing or paused container
+-   Buat perintah (terminal) untuk container yang sendang aktif
 
 ```
 podman container exec -it container_name /bin/bash
@@ -69,4 +69,62 @@ Check netstat
 
 ```
 netstat -tuln | grep 80
+```
+
+### 🔥 Close Environment WSL Podman Machine
+
+Untuk file /etc/wsl.conf di Podman Machine Default
+
+```
+[user]
+default=user
+
+[network]
+generateResolvConf = false
+
+[interop]
+enabled = false
+appendWindowsPath = false
+
+[automount]
+enabled = false
+```
+
+Masukkan sesuai kebutuhan privasi anda
+
+# ✌️ Extra ETC Command
+
+### 😎 Nginx Command
+
+Buat symbolink nginx
+
+```
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+```
+
+### 🤩 Git Command
+
+Lihat daftar remote branch
+
+```
+git remote show origin
+```
+
+Bersihkan sisa remote branch yang telah di merge
+
+```
+git remote prune origin
+```
+
+Batalkan push
+
+```
+git push -f origin last_known_good_commit:branch_name
+example: git push -f origin cc4b6beb5k4:alpha-4.2.69
+```
+
+Batalkan commit terbaru di local
+
+```
+git reset HEAD~1
 ```
