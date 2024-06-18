@@ -1,9 +1,9 @@
-# Max compose alpine isolate containers
+# Max compose alpine isolated containers
 
 ### 🔥 Setup
 
 Sebelum membuat Base-Image isolated container perlu diperhatikan konfigurasi di
-nginx ubah _fastcgi_pass_ file _etc\nginx\http.d\localhost.conf_ seperti contoh dibawah
+nginx ubah _fastcgi_pass_ file [localhost.conf](/etc/nginx/http.d/localhost.conf) seperti contoh dibawah
 
 ```
 location ~ \.php$ {
@@ -29,25 +29,25 @@ Note: Jika base image sebelumnya telah anda build silahkan di hapus terlebih dah
 
 Mari kita build image untuk masing - masing isolate container-nya
 
--   Build Isolate Php-fpm container
+-   Build Isolate [Php-fpm](./phpfpm.podmanfile) container
 
 ```
 podman build -t app-phpfpm -f phpfpm.podmanfile
 ```
 
--   Build Isolate NodeJs container
+-   Build Isolate [NodeJs](./nodejs.podmanfile) container
 
 ```
 podman build -t app-nodejs -f nodejs.podmanfile
 ```
 
--   Build Isolate MariaDB container
+-   Build Isolate [MariaDB](./mariadb.podmanfile) container
 
 ```
 podman build -t app-mariadb -f mariadb.podmanfile
 ```
 
--   Build Isolate Nginx container
+-   Build Isolate [Nginx](./nginx.podmanfile) container
 
 ```
 podman build -t app-nginx -f nginx.podmanfile
@@ -55,7 +55,7 @@ podman build -t app-nginx -f nginx.podmanfile
 
 ### 🚀 Jalankan Compose Isolate containers
 
-Sebelum menjalakan anda ubah dulu konten yang ada di file _podman-compose.yml_. contoh:
+Sebelum menjalakan anda ubah dulu konten yang ada di file [podman-compose.yml](./podman-compose.yml). contoh:
 
 ```composefile
 environment:
