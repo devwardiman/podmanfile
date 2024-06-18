@@ -7,7 +7,7 @@ services:
             - ../www:/var/www
             - ../etc/nginx/sites-available:/etc/nginx/sites-available
             - ../etc/nginx/ssl:/etc/nginx/ssl
-            - ../etc/php/php-fpm.d:/etc/php83/php-fpm.d
+            - ../etc/php/ubuntu-fpm-pool:/etc/php/8.3/fpm/pool.d
             - mysql-storage:/var/lib/mysql
         ports:
             - '80:80'

@@ -1,20 +1,4 @@
-# 🚀 Perakit Podmanfile Multi-Stage Builds
-
-### 🔥 Setup Multi-Stage Build
-
-Pertama kita build dulu base-image untuk multi-stage container dengan menjalankan perintah berikut
-
-```
-podman build -t base-perakit -f base-image.podmanfile
-```
-
-Setelah base-image dibuat anda bisa masuk ke folder compose yang ingin anda jalankan sebagai contoh di-bawah saya akan menggunakan compose-alpine-one
-
-```
-cd compose-alpine-one
-```
-
-## Minimal compose alpine one
+# Minimal compose alpine one
 
 ### ⭐️ Fitur
 
@@ -33,7 +17,13 @@ cd compose-alpine-one
 
 ### 🔥 Setup
 
-Di dalam folder _compose-alpine-one_ Buka file _podman-compose.yml_ dan ubah konten yang ingin anda tentukan seperti password root, database-awal, user tambahan dan password user tambahan. Contoh:
+Langkah Pertama anda harus build base-image dulu untuk multi-stage dengan menjalankan perintah berikut diluar folder ini
+
+```
+podman build -t base-perakit -f base-image.podmanfile
+```
+
+Kemudian buka file _podman-compose.yml_ dan ubah konten yang ingin anda tentukan seperti password root, database-awal, user tambahan dan password user tambahan. Contoh:
 
 ```composefile
 environment:

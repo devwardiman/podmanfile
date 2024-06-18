@@ -39,7 +39,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # Clean up
 RUN rm -f /var/cache/apk/*
 
-COPY --from=builder /app/mariadb/run.sh /scripts/run.sh
+COPY --from=builder /app/mariadb/alpine.sh /scripts/run.sh
 
 # Create a directory for scripts
 RUN mkdir /docker-entrypoint-initdb.d && \
@@ -66,7 +66,7 @@ RUN chmod -R 755 /scripts && \
 
 # Copy the Nginx configuration file into the container
 COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/supervisord.conf /etc/supervisord.conf
+COPY --from=builder /app/supervisor/alpine.conf /etc/supervisord.conf
 
 # create symbolic link for default site available for nginx
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
