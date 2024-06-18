@@ -1,3 +1,6 @@
+# Use Base Image as multi-stage build
+FROM base-perakit:latest as builder
+
 # Use Alpine Linux as the base image
 FROM alpine:latest
 
@@ -36,7 +39,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # Clean up
 RUN rm -f /var/cache/apk/*
 
-ADD /etc/mariadb/run.sh /scripts/run.sh
+COPY --from=builder /app/mariadb/run.sh /scripts/run.sh
 
 # Create a directory for scripts
 RUN mkdir /docker-entrypoint-initdb.d && \
@@ -62,8 +65,8 @@ RUN chmod -R 755 /scripts && \
 # RUN chmod -R g+w /var/www/html
 
 # Copy the Nginx configuration file into the container
-COPY /etc/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY /etc/supervisord.conf /etc/supervisord.conf
+COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /app/supervisord.conf /etc/supervisord.conf
 
 # create symbolic link for default site available for nginx
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default

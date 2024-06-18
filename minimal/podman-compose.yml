@@ -4,10 +4,10 @@ services:
     server:
         build: .
         volumes:
-            - ./www:/var/www
-            - ./etc/nginx/sites-available:/etc/nginx/sites-available
-            - ./etc/nginx/ssl:/etc/nginx/ssl
-            - ./etc/php/php-fpm.d:/etc/php83/php-fpm.d
+            - ../www:/var/www
+            - ../etc/nginx/sites-available:/etc/nginx/sites-available
+            - ../etc/nginx/ssl:/etc/nginx/ssl
+            - ../etc/php/php-fpm.d:/etc/php83/php-fpm.d
             - mysql-storage:/var/lib/mysql
         ports:
             - '80:80'
