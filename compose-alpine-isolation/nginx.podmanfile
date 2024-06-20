@@ -31,8 +31,8 @@ RUN adduser -u 1000 -S user -G www-data -g www-data
 # Create directories and change ownership
 RUN mkdir -p /var/www && \
     mkdir -p /var/volumes && \
-    chown -R :www-data /var/www && \
     chmod -R 775 /var/www && \
+    chown -R :www-data /var/www && \
     chown -R user:www-data /var/volumes
 
 CMD nginx -t && nginx -g 'daemon off;' && tail -f /dev/null

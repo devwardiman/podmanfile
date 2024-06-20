@@ -56,6 +56,7 @@ RUN mkdir -p /var/log/supervisor && \
     mkdir -p /var/log/nginx && \
     mkdir -p /etc/nginx/sites-available && \
     mkdir -p /etc/nginx/sites-enabled && \
+    mkdir -p /var/www && \
     mkdir -p /var/www/html && \
     mkdir -p /var/volumes
 
@@ -71,13 +72,6 @@ RUN sed -i 's/;listen.owner = nobody/listen.owner = user/' /etc/php83/php-fpm.d/
     && sed -i 's/user = nobody/user = user/' /etc/php83/php-fpm.d/www.conf \
     && sed -i 's/group = nobody/group = www-data/' /etc/php83/php-fpm.d/www.conf \
     && sed -i 's/listen = 127.0.0.1:9000/listen = 9000/' /etc/php83/php-fpm.d/www.conf
-
-# Set permissions group www-data
-RUN chown -R :www-data /var/www && \
-    chmod -R 775 /var/www && \
-    chown -R user:www-data /var/volumes
-# chmod -R ugo+rw /var/www && \
-# RUN chmod -R g+w /var/www/html
 
 # Copy the Nginx configuration file into the container
 COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
