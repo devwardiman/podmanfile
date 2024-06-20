@@ -66,10 +66,10 @@ RUN adduser -D user && \
     addgroup user www-data
 
 # Configure PHP-FPM
-RUN sed -i 's/user = nobody/user = user/' /etc/php83/php-fpm.d/www.conf \
-    && sed -i 's/group = nobody/group = www-data/' /etc/php83/php-fpm.d/www.conf \
-    && sed -i 's/;listen.owner = nobody/listen.owner = user/' /etc/php83/php-fpm.d/www.conf \
+RUN sed -i 's/;listen.owner = nobody/listen.owner = user/' /etc/php83/php-fpm.d/www.conf \
     && sed -i 's/;listen.group = nobody/listen.group = www-data/' /etc/php83/php-fpm.d/www.conf \
+    && sed -i 's/user = nobody/user = user/' /etc/php83/php-fpm.d/www.conf \
+    && sed -i 's/group = nobody/group = www-data/' /etc/php83/php-fpm.d/www.conf \
     && sed -i 's/listen = 127.0.0.1:9000/listen = 9000/' /etc/php83/php-fpm.d/www.conf
 
 # Set permissions group www-data
