@@ -23,7 +23,8 @@ RUN apk add --no-cache php83 php83-cli php83-fpm \
     php83-json php83-openssl php83-phar \
     php83-zip php83-gd php83-dom \
     php83-session php83-simplexml php83-sqlite3 \
-    php83-intl php83-xmlwriter
+    php83-intl php83-xmlwriter php83-mysqli \
+    php83-exif php83-iconv php83-pecl-imagick
 
 # Install Yarn globally
 RUN npm install --global yarn
@@ -41,7 +42,8 @@ ADD /etc/mariadb/run.sh /scripts/run.sh
 # Create a directory for scripts
 RUN mkdir /docker-entrypoint-initdb.d && \
     mkdir /scripts/pre-exec.d && \
-    mkdir /scripts/pre-init.d
+    mkdir /scripts/pre-init.d && \
+    chmod -R 755 /scripts
 
 # Create a directory for Nginx run and log files
 RUN mkdir -p /var/log/supervisor && \
@@ -56,9 +58,9 @@ RUN adduser -D user && \
     addgroup user www-data
 
 # Set permissions group www-data
-RUN chmod -R 755 /scripts && \
-    chown -R :www-data /var/www/html && \
-    chmod -R ugo+rw /var/www/html
+RUN chown -R :www-data /var/www && \
+    chmod -R 775 /var/www && \
+    chown -R user:www-data /var/volumes
 # RUN chmod -R g+w /var/www/html
 
 # Copy the Nginx configuration file into the container

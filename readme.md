@@ -19,7 +19,7 @@
 
 ### 🔥 Setup
 
-Buka file podman-compose.yml dan ubah konten yang ingin anda tentukan seperti password root, database-awal, user tambahan dan password user tambahan
+Buka file [podman-compose.yml](/podman-compose.yml) dan ubah konten seperti password root, database-awal, user tambahan dan password user tambahan
 
 ```composefile
 environment:
@@ -38,7 +38,7 @@ Setelah selesai setup, Jalankan perintah compose dibawah dan selesai
 podman compose --file podman-compose.yml up -d
 ```
 
-setelah container jalan silahkan buka localhost di-browser anda 😁
+setelah container jalan silahkan buka localhost di-browser 😁
 
 ### 🫛 Membuka Container Podman yang berjalan
 
@@ -54,15 +54,15 @@ Sebagai contoh nama container saya adalah "_alpine-server-1_" jadi saya menjalan
 podman container exec -it alpine-server-1 /bin/bash
 ```
 
-Ganti "_alpine-server-1_" sesuai dengan nama container anda
+Ganti "_alpine-server-1_" sesuai dengan nama container kita
 
 ### ⭐ Struktur Folder
 
-Silahkan masukkan project anda di folder dalam www jadi akan berada bersampingan dengan folder html
+Silahkan masukkan project kita di folder dalam www jadi akan berada bersampingan dengan folder html
 
 ### 🔥 Advance SSL Setup
 
-Untuk menggunakan ssl (port 443) anda membutuhkan sertifikat, anda bisa menjalankan perintah openssl self signed certificate untuk membuat sertifikat anda sendiri
+Untuk menggunakan ssl (port 443) kita membutuhkan sertifikat, dengan menjalankan perintah openssl self signed certificate untuk membuat sertifikat sendiri
 
 ```
 openssl req -newkey rsa:4096 \
@@ -74,14 +74,19 @@ openssl req -newkey rsa:4096 \
     -keyout localhost.key
 ```
 
-isi sesuai kebutuhan anda
+isi sesuai kebutuhan
 
 Setelah sertifikat ssl terbuat pindahkan file .crt dan .key ke dalam folder _etc\nginx\ssl_
 
-Buka file konfigurasi default nginx di _etc\nginx\sites-available\default_
+Buka file konfigurasi [default](/etc/nginx/sites-available/default) nginx sebagai berikut
+
+```
+etc\nginx\sites-available\default
+```
+
 Ikuti petunjuk yang ada di-dalam file tersebut
 
-Lanjut Buka file _podman-compose.yml_ dan hilangkan tanda pagar dibawah ports: # -433:433 jadi akan seperti dibawah dan pastikan spasi tab sesuai
+Lanjut Buka file [podman-compose.yml](/podman-compose.yml) dan hilangkan tanda pagar dibawah ports: # -433:433 jadi akan seperti dibawah dan pastikan spasi tab sesuai
 
 ```composefile
 ports:
@@ -90,7 +95,7 @@ ports:
   - '3306:3306'
 ```
 
-setelah _podman-compose.yml_ anda simpan, lakukan build ulang compose agar port bisa terbuka
+setelah [podman-compose.yml](/podman-compose.yml) kita simpan, lakukan build ulang compose agar port bisa terbuka
 
 ```bash
 podman compose --file podman-compose.yml up -d

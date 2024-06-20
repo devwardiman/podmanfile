@@ -9,6 +9,7 @@ services:
             - ./etc/nginx/ssl:/etc/nginx/ssl
             - ./etc/php/php-fpm.d:/etc/php83/php-fpm.d
             - mysql-storage:/var/lib/mysql
+            - sites-volumes:/var/volumes
         ports:
             - '80:80'
             # - '443:443'
@@ -27,3 +28,4 @@ services:
             MYSQL_PASSWORD: [Enter_user_password]
 volumes:
     mysql-storage:
+    sites-volumes:
