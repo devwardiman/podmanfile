@@ -2,8 +2,7 @@
 
 ## 🔥 Setup
 
-Sebelum membuat Base-Image isolated container perlu diperhatikan konfigurasi di
-nginx ubah _fastcgi_pass_ di file [default](/etc/nginx/sites-available/default)
+Sebelum menjalankan Isolated container perlu diperhatikan konfigurasi nginx ubah _fastcgi_pass_ di file [default](/etc/nginx/sites-available/default)
 
 ```
 fastcgi_pass 172.18.0.2:9000
@@ -29,8 +28,6 @@ Langkah kedua untuk isolate container, jika belum build base image sebelumnya ma
 podman build -t base-perakit -f ../base-image.podmanfile
 ```
 
-Note: Jika base image sebelumnya telah kita build, silahkan lanjutkan
-
 ## 🚀 Jalankan Compose Isolate containers
 
 Sebelum menjalakan kita ubah dulu konten yang ada di file [podman-compose.yml](./podman-compose.yml). contoh:
@@ -52,6 +49,9 @@ podman compose --file podman-compose.yml up -d
 <hr>
 
 ## 📦 Cara Lain menjalankan isolated container dengan custom images
+
+Langkah kita menjalankan isolated container telah selesai mengikuti [setup](#-Setup) diatas, Namun jika tidak ingin menggunkan build context dan ingin membuat costum image sendiri
+maka langkah yang dapat kita gunakan adalah dibawah ini:
 
 ### 📦 Build Isolated Images
 
