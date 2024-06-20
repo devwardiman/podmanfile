@@ -149,17 +149,29 @@ Setelah selesai refresh browser kita. Jika halaman tidak berubah tekan kombinasi
 
 Untuk menggunakan ssl (port 443) kita membutuhkan sertifikat, kita bisa menjalankan perintah openssl self signed certificate untuk membuat sertifikat sendiri
 
+#### Generate a private key
+
 ```
-openssl req -newkey rsa:4096 \
-    -x509 \
-    -sha256 \
-    -days 3650 \
-    -nodes \
-    -out localhost.crt \
-    -keyout localhost.key
+openssl genrsa -out localhost.key 2048
 ```
 
-isi sesuai kebutuhan.
+#### Create a self-signed certificate
+
+```
+openssl req -new -x509 -key localhost.key -out localhost.crt -days 365 -subj "/CN=localhost" -addext "subjectAltName=DNS:localhost"
+```
+
+#### Domain Generate a private key
+
+```
+openssl genrsa -out laravel.test.key 2048
+```
+
+#### Domain Create a self-signed certificate
+
+```
+openssl req -new -x509 -key laravel.test.key -out laravel.test.crt -days 365 -subj "/CN=laravel.test" -addext "subjectAltName=DNS:laravel.test,DNS:\*.laravel.test"
+```
 
 Setelah sertifikat ssl terbuat pindahkan file .crt dan .key ke dalam folder _etc\nginx\ssl_
 
