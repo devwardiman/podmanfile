@@ -9,11 +9,29 @@ RUN apk update && apk upgrade
 # Install Node.js and npm
 RUN apk add --no-cache bash nodejs-current npm
 
+# Install Yarn globally
+RUN npm install --global yarn
+
 # Verify Node.js installation
 RUN node -v
 RUN npm -v
+RUN yarn -v
 
-# Install Yarn globally
-RUN npm install --global yarn
+# Create a group and user
+RUN adduser -u 1000 -S user -G www-data -g www-data
+
+# Create directories and change ownership
+RUN mkdir -p /var/www && \
+    mkdir -p /var/volumes && \
+    chown -R :www-data /var/www && \
+    chmod -R 775 /var/www && \
+    chown -R user:www-data /var/volumes
+
+USER user
+
+RUN mkdir ~/.npm-global && \
+    npm config set prefix '~/.npm-global' && \
+    echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.profile && \
+    source ~/.profile
 
 CMD tail -f /dev/null

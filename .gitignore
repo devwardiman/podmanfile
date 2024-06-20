@@ -1,2 +1,2 @@
-etc/nginx/ssl/*
 etc/nginx/sites-available/*
+!etc/nginx/sites-available/default

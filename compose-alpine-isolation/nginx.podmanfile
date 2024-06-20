@@ -6,19 +6,33 @@ FROM alpine:latest
 
 LABEL maintainer devwardiman <devwardiman@gmail.com>
 
+# Install dependencies
+RUN apk add --no-cache bash curl unzip openssl
+
 # Install Nginx
-RUN apk add --no-cache bash nginx
+RUN apk add --no-cache nginx
+
+# Copy the Nginx configuration file into the container
+COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /app/nginx/scripts/ /run/nginx
 
 # Create a directory for Nginx run and log files
-RUN mkdir -p /run/nginx && \
+RUN chmod +x /run/nginx/*.sh && \
     mkdir -p /var/log/nginx && \
     mkdir -p /etc/nginx/sites-available && \
     mkdir -p /etc/nginx/sites-enabled
 
-# Copy the Nginx configuration file into the container
-COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
-
 # create symbolic link for default site available for nginx
-# RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-CMD nginx -g 'daemon off;' && tail -f /dev/null
+# Create a group and user
+RUN adduser -u 1000 -S user -G www-data -g www-data
+
+# Create directories and change ownership
+RUN mkdir -p /var/www && \
+    mkdir -p /var/volumes && \
+    chown -R :www-data /var/www && \
+    chmod -R 775 /var/www && \
+    chown -R user:www-data /var/volumes
+
+CMD nginx -t && nginx -g 'daemon off;' && tail -f /dev/null

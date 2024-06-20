@@ -1,15 +1,15 @@
 # Max compose alpine isolated containers
 
-### 🔥 Setup
+## 🔥 Setup
 
 Sebelum membuat Base-Image isolated container perlu diperhatikan konfigurasi di
-nginx ubah _fastcgi_pass_ file [localhost.conf](/etc/nginx/http.d/localhost.conf) seperti contoh dibawah
+nginx ubah _fastcgi_pass_ di file [default](/etc/nginx/sites-available/default) seperti contoh dibawah
 
 ```
 location ~ \.php$ {
   try_files $uri =404;
   fastcgi_split_path_info ^(.+\.php)(/.+)$;
-  fastcgi_pass 172.18.0.3:9000;
+  fastcgi_pass 172.18.0.2:9000;
   fastcgi_index index.php;
   include fastcgi_params;
   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -17,13 +17,35 @@ location ~ \.php$ {
 }
 ```
 
-Langkah kedua untuk isolate container, anda harus build buat baru base-image untuk multi-stage dengan menjalankan perintah berikut di dalam folder ini
+Langkah kedua untuk isolate container, kita harus build buat baru base-image untuk multi-stage dengan menjalankan perintah berikut di dalam folder ini
 
 ```
 podman build -t base-perakit -f ../base-image.podmanfile
 ```
 
-Note: Jika base image sebelumnya telah anda build silahkan di hapus terlebih dahulu kemudian build ulang!
+Note: Jika base image sebelumnya telah kita build silahkan di hapus terlebih dahulu kemudian build ulang!
+
+## 🚀 Jalankan Compose Isolate containers
+
+Sebelum menjalakan kita ubah dulu konten yang ada di file [podman-compose.yml](./podman-compose.yml). contoh:
+
+```composefile
+environment:
+  MYSQL_ROOT_PASSWORD: hello
+  MYSQL_DATABASE: mydatabase
+  MYSQL_USER: user
+  MYSQL_PASSWORD: password
+```
+
+Setelah selesai mengubah file compose, Jalankan perintah compose dibawah dan selesai
+
+```bash
+podman compose --file podman-compose.yml up -d
+```
+
+<hr>
+
+## 📦 Cara Lain menjalankan isolated container dengan custom images
 
 ### 📦 Build Isolated Images
 
@@ -53,19 +75,26 @@ podman build -t app-mariadb -f mariadb.podmanfile
 podman build -t app-nginx -f nginx.podmanfile
 ```
 
-### 🚀 Jalankan Compose Isolate containers
+### 🫛 Ubah build contaxt ke image app di file [podman-compose.yml](./podman-compose.yml)
 
-Sebelum menjalakan anda ubah dulu konten yang ada di file [podman-compose.yml](./podman-compose.yml). contoh:
+sebagai contoh
 
-```composefile
-environment:
-  MYSQL_ROOT_PASSWORD: hello
-  MYSQL_DATABASE: mydatabase
-  MYSQL_USER: user
-  MYSQL_PASSWORD: password
+```
+    nginx:
+        build:
+            context: .
+            dockerfile: ./nginx.podmanfile
 ```
 
-<hr>
+menjadi
+
+```
+    nginx:
+        image: localhost/app-nginx
+```
+
+Atur nama image sesuai dengan aplikasi yang ingin di integrasikan
+
 Setelah selesai mengubah file compose, Jalankan perintah compose dibawah dan selesai
 
 ```bash

@@ -3,8 +3,9 @@ FROM alpine:latest as base-perakit
 
 LABEL maintainer devwardiman <devwardiman@gmail.com>
 
-# Copy the Nginx configuration file into the container
+# Copy the Nginx configuration file and scripts into the container
 COPY /etc/nginx/nginx.conf /app/nginx/nginx.conf
+ADD /etc/nginx/scripts/ /app/nginx/scripts/
 
 # Copy the MariaDB configuration file into the container
 ADD /etc/mariadb/ /app/mariadb/

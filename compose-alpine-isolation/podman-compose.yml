@@ -1,37 +1,19 @@
 version: '3.7'
 
 services:
-    php:
-        image: localhost/app-phpfpm
-        volumes:
-            - ../www:/var/www
-            - ../etc/php/alpine-fpm-pool:/etc/php83/php-fpm.d
-        working_dir: /var/www
-        ports:
-            - '9000:9000'
-        networks:
-            perakit_network:
-                ipv4_address: 172.18.0.2
-    nodejs:
-        image: localhost/app-nodejs
-        volumes:
-            - ../www:/var/www
-        working_dir: /var/www
-        # ports:
-        #     - '5173:5173'
-        networks:
-            perakit_network:
-                ipv4_address: 172.18.0.3
     nginx:
-        image: localhost/app-nginx
+        build:
+            context: .
+            dockerfile: ./nginx.podmanfile
         depends_on:
             - php
             - nodejs
+            - mysql
         volumes:
             - ../www:/var/www
-            - ../etc/nginx/http.d:/etc/nginx/http.d
             - ../etc/nginx/sites-available:/etc/nginx/sites-available
             - ../etc/nginx/ssl:/etc/nginx/ssl
+            - sites-volumes:/var/volumes
         ports:
             - '80:80'
             # - '443:443'
@@ -43,9 +25,38 @@ services:
         working_dir: /var/www
         networks:
             perakit_network:
-                ipv4_address: 172.18.0.4
+                ipv4_address: 172.18.0.1
+    php:
+        build:
+            context: .
+            dockerfile: ./phpfpm.podmanfile
+        volumes:
+            - ../www:/var/www
+            - ../etc/php/alpine-fpm-pool:/etc/php83/php-fpm.d
+            - sites-volumes:/var/volumes
+        working_dir: /var/www
+        ports:
+            - '9000:9000'
+        networks:
+            perakit_network:
+                ipv4_address: 172.18.0.2
+    nodejs:
+        build:
+            context: .
+            dockerfile: ./nodejs.podmanfile
+        volumes:
+            - ../www:/var/www
+            - sites-volumes:/var/volumes
+        working_dir: /var/www
+        # ports:
+        #     - '5173:5173'
+        networks:
+            perakit_network:
+                ipv4_address: 172.18.0.3
     mysql:
-        image: localhost/app-mariadb
+        build:
+            context: .
+            dockerfile: ./mariadb.podmanfile
         environment:
             MYSQL_ROOT_PASSWORD: [Enter_root_password]
             MYSQL_DATABASE: [Enter_database_name]
@@ -63,6 +74,7 @@ services:
                 ipv4_address: 172.18.0.5
 volumes:
     mysql-storage:
+    sites-volumes:
 networks:
     perakit_network:
         name: perakit_network

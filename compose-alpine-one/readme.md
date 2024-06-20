@@ -17,13 +17,13 @@
 
 ### 🔥 Setup
 
-Langkah Pertama anda harus build base-image dulu untuk multi-stage dengan menjalankan perintah berikut diluar folder ini
+Langkah Pertama kita harus build base-image dulu untuk multi-stage dengan menjalankan perintah berikut diluar folder ini
 
 ```
 podman build -t base-perakit -f base-image.podmanfile
 ```
 
-Kemudian buka file [podman-compose.yml](./podman-compose.yml) dan ubah konten yang ingin anda tentukan seperti password root, database-awal, user tambahan dan password user tambahan. Contoh:
+Kemudian buka file [podman-compose.yml](./podman-compose.yml) dan ubah konten yang ingin kita tentukan seperti password root, database-awal, user tambahan dan password user tambahan. Contoh:
 
 ```composefile
 environment:
@@ -42,7 +42,7 @@ Setelah selesai mengubah file compose, Jalankan perintah compose dibawah dan sel
 podman compose --file podman-compose.yml up -d
 ```
 
-setelah container jalan silahkan buka localhost di-browser anda 😁
+setelah container jalan silahkan buka localhost di-browser kita 😁
 
 ### 🫛 Membuka Container Podman yang berjalan
 
@@ -58,20 +58,20 @@ Sebagai contoh nama container yang muncul adalah "_compose-alpine-one-server-1_"
 podman container exec -it compose-alpine-one-server-1 /bin/bash
 ```
 
-Ganti "_compose-alpine-one-server-1_" sesuai dengan nama container yang muncul di podman ps anda
+Ganti "_compose-alpine-one-server-1_" sesuai dengan nama container yang muncul di podman ps
 
 ### ⭐ Struktur Folder
 
-Silahkan masukkan project custom anda di folder dalam www jadi akan berada berdampingan dengan folder html
+Silahkan masukkan project custom di folder dalam www jadi akan berada berdampingan dengan folder html
 
 #### 🚀 Latihan Tambah site baru di sites-available
 
 Sebagai contoh kita menambahkan folder "mysite" di dalam folder _/www_ maka kita perlu menambahkan configurasi nginx di folder sites-available sebagai berikut
 
--   Buat file [mysite.conf](/etc/nginx/sites-available/mysite.conf) di Host seperti lokasi dibawah (bukan di dalam container)
+-   Buat file [mysite.test](/etc/nginx/sites-available/mysite.test) di Host seperti lokasi dibawah (bukan di dalam container)
 
 ```
-/etc/nginx/sites-available/mysite.conf
+/etc/nginx/sites-available/mysite.test
 ```
 
 -   Masukkan kode sebagai berikut
@@ -101,10 +101,10 @@ server {
 }
 ```
 
--   Ubah _server_name_ ke "localhost2" di file [localhost.conf](/etc/nginx/http.d/localhost.conf) di dalam folder http.d seperti lokasi dibawah
+-   Ubah _server_name_ ke "localhost2" di file [default](/etc/nginx/sites-available/default) di dalam folder sites-available seperti lokasi dibawah
 
 ```
-/etc/nginx/http.d/localhost.conf
+/etc/nginx/sites-available/default
 ```
 
 Contoh:
@@ -132,11 +132,11 @@ Jika status ok maka reload config dengan perintah
 nginx -s reload
 ```
 
-Setelah selesai refresh browser anda. Jika halaman tidak berubah tekan kombinasi SHIFT + F5
+Setelah selesai refresh browser. Jika halaman tidak berubah tekan kombinasi SHIFT + F5
 
 ### 🔥 Advance SSL Setup
 
-Untuk menggunakan ssl (port 443) anda membutuhkan sertifikat, anda bisa menjalankan perintah openssl self signed certificate untuk membuat sertifikat anda sendiri
+Untuk menggunakan ssl (port 443) kita membutuhkan sertifikat, kita bisa menjalankan perintah openssl self signed certificate untuk membuat sertifikat sendiri
 
 ```
 openssl req -newkey rsa:4096 \
@@ -148,11 +148,11 @@ openssl req -newkey rsa:4096 \
     -keyout localhost.key
 ```
 
-isi sesuai kebutuhan anda
+isi sesuai kebutuhan
 
 Setelah sertifikat ssl terbuat pindahkan file .crt dan .key ke dalam folder _etc\nginx\ssl_
 
-Buka file konfigurasi [localhost.conf](/etc/nginx/http.d/localhost.conf) nginx di _etc\nginx\http.d\localhost.conf_
+Buka file konfigurasi [default](/etc/nginx/sites-available/default) nginx di _etc\nginx\sites-available\default_
 Ikuti petunjuk yang ada di-dalam file tersebut
 
 Lanjut Buka file [podman-compose.yml](/compose-alpine-one/podman-compose.yml) dan hilangkan tanda pagar dibawah ports: # -433:433 jadi akan seperti dibawah dan pastikan spasi tab sesuai
@@ -164,7 +164,7 @@ ports:
   - '3306:3306'
 ```
 
-setelah [podman-compose.yml](/compose-alpine-one/podman-compose.yml) anda simpan, lakukan build ulang compose agar port bisa terbuka
+setelah [podman-compose.yml](/compose-alpine-one/podman-compose.yml) kita simpan, lakukan build ulang compose agar port bisa terbuka
 
 ```bash
 podman compose --file podman-compose.yml up -d

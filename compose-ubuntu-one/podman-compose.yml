@@ -5,11 +5,11 @@ services:
         build: .
         volumes:
             - ../www:/var/www
-            - ../etc/nginx/http.d:/etc/nginx/http.d
             - ../etc/nginx/sites-available:/etc/nginx/sites-available
             - ../etc/nginx/ssl:/etc/nginx/ssl
             - ../etc/php/ubuntu-fpm-pool:/etc/php/8.3/fpm/pool.d
             - mysql-storage:/var/lib/mysql
+            - sites-volumes:/var/volumes
         ports:
             - '80:80'
             # - '443:443'
@@ -28,3 +28,4 @@ services:
             MYSQL_PASSWORD: [Enter_user_password]
 volumes:
     mysql-storage:
+    sites-volumes:

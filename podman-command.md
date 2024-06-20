@@ -39,6 +39,38 @@ podman container exec -it container_name /bin/bash
 podman compose up -d --build --force-recreate
 ```
 
+### 🫛 Buka container dengan user root
+
+```
+podman container exec -it --user root nama_contaier sh
+```
+
+### 🫛 Copy files into a volume container
+
+-   Pull base image alpine
+
+```
+podman pull alpine:latest
+```
+
+-   Kita jalankan test container dan mount volume kedalam container tersebut
+
+```
+podman run -v sites-volumes:/tmpfolder --name testcontainer -d -t alpine
+```
+
+-   Copy file kedalam test container yang telah kita buat yang juga akan masuk ke penyimpanan volume
+
+```
+podman cp www/. testcontainer:/tmpfolder
+```
+
+-   Setelah file dicopy kita bisa hancurkan test container yang telah di-buat
+
+```
+podman rm testcontainer
+```
+
 ### 🫛 Open Unprivileged Port on Fedora
 
 Buka _sysctl.conf_
