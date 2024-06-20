@@ -3,7 +3,13 @@
 ## 🔥 Setup
 
 Sebelum membuat Base-Image isolated container perlu diperhatikan konfigurasi di
-nginx ubah _fastcgi_pass_ di file [default](/etc/nginx/sites-available/default) seperti contoh dibawah
+nginx ubah _fastcgi_pass_ di file [default](/etc/nginx/sites-available/default)
+
+```
+fastcgi_pass 172.18.0.2:9000
+```
+
+Sehingga terlihat seperti contoh dibawah
 
 ```
 location ~ \.php$ {
@@ -17,13 +23,13 @@ location ~ \.php$ {
 }
 ```
 
-Langkah kedua untuk isolate container, kita harus build buat baru base-image untuk multi-stage dengan menjalankan perintah berikut di dalam folder ini
+Langkah kedua untuk isolate container, jika belum build base image sebelumnya maka kita harus build base-image dengan menjalankan perintah berikut di dalam folder ini
 
 ```
 podman build -t base-perakit -f ../base-image.podmanfile
 ```
 
-Note: Jika base image sebelumnya telah kita build silahkan di hapus terlebih dahulu kemudian build ulang!
+Note: Jika base image sebelumnya telah kita build, silahkan lanjutkan
 
 ## 🚀 Jalankan Compose Isolate containers
 
