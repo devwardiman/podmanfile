@@ -30,7 +30,7 @@ podman build -t base-perakit -f ../base-image.podmanfile
 
 ## 🚀 Jalankan Compose Isolate containers
 
-Sebelum menjalakan kita ubah dulu konten yang ada di file [podman-compose.yml](./podman-compose.yml). contoh:
+Sebelum menjalankan kita ubah dulu konten yang ada di file [podman-compose.yml](./podman-compose.yml). contoh:
 
 ```composefile
 environment:
