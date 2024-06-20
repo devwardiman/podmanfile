@@ -18,4 +18,4 @@ fi
 
 chown -R user:www-data /var/volumes
 
-exit 0
+tail 1500 -f /dev/null

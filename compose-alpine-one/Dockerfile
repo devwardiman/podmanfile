@@ -77,4 +77,4 @@ RUN sed -i 's/;listen.owner = nobody/listen.owner = user/' /etc/php83/php-fpm.d/
 COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/supervisor/alpine.conf /etc/supervisord.conf
 
-ENTRYPOINT ["supervisord", "--nodaemon", "--configuration", "/etc/supervisord.conf"]
+ENTRYPOINT ["supervisord", "--configuration", "/etc/supervisord.conf"]
