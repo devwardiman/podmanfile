@@ -25,21 +25,25 @@ services:
         working_dir: /var/www
         networks:
             perakit_network:
-                ipv4_address: 172.18.0.1
+                # ipv4_address: 172.18.0.1
     php:
         build:
             context: .
             dockerfile: ./phpfpm.podmanfile
+            # dockerfile: ./phpfpm-xdebug.podmanfile
         volumes:
             - ../www:/var/www
             - ../etc/php/alpine-fpm-pool:/etc/php83/php-fpm.d
+            # - ../etc/php/conf.d/xdebug.ini:/etc/php83/conf.d/docker-php-ext-xdebug.ini
+            # - ../etc/php/conf.d/error_reporting.ini:/etc/php83/conf.d/error_reporting.ini
             - sites-volumes:/var/volumes
         working_dir: /var/www
         ports:
             - '9000:9000'
+            # - '9001:9001'
         networks:
             perakit_network:
-                ipv4_address: 172.18.0.2
+                # ipv4_address: 172.18.0.2
     nodejs:
         build:
             context: .
@@ -52,7 +56,7 @@ services:
         #     - '5173:5173'
         networks:
             perakit_network:
-                ipv4_address: 172.18.0.3
+                # ipv4_address: 172.18.0.3
     mysql:
         build:
             context: .
@@ -71,7 +75,7 @@ services:
         restart: always
         networks:
             perakit_network:
-                ipv4_address: 172.18.0.5
+                # ipv4_address: 172.18.0.5
 volumes:
     mysql-storage:
     sites-volumes:
@@ -79,9 +83,9 @@ networks:
     perakit_network:
         name: perakit_network
         driver: bridge
-        ipam:
-            driver: default
-            options:
-                driver: host-local
-            config:
-                - subnet: 172.18.0.0/16
+        # ipam:
+        #     driver: default
+        #     options:
+        #         driver: host-local
+        #     config:
+        #         - subnet: 172.18.0.0/16
