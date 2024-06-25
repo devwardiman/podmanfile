@@ -17,10 +17,10 @@
 
 ### 🔥 Setup
 
-Langkah Pertama kita harus build base-image dulu untuk multi-stage dengan menjalankan perintah berikut diluar folder ini
+Langkah Pertama kita harus build base-image dulu untuk multi-stage dengan menjalankan perintah berikut didalam folder ini
 
 ```
-podman build -t base-perakit -f base-image.podmanfile
+podman build -t base-perakit -f ../base-image.podmanfile
 ```
 
 Kemudian buka file [podman-compose.yml](./podman-compose.yml) dan ubah konten yang ingin kita tentukan seperti password root, database-awal, user tambahan dan password user tambahan. Contoh:
