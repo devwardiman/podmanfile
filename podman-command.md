@@ -180,13 +180,31 @@ Batalkan commit terbaru di local
 git reset HEAD~1
 ```
 
-### SSH
+### SSH & Git Connect
+
+Untuk membuat ssh key [Read More](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
 ```
 ssh-keygen -t ed25519 -C "your_email@example.com"
 touch ~/.ssh/config
 chmod 400 ~/.ssh/config
 chmod 600 ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa.pub
+```
+
+Contoh file _config_
+
+```
+Host github.com
+    HostName github.com
+    User username
+    IdentityFile ~/.ssh/username
+```
+
+Test Connection
+
+```
+ssh -T git@github.com
 ```
 
 ### 🫛 Php Xdebug
