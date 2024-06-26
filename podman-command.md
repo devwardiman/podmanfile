@@ -126,6 +126,24 @@ Masukkan sesuai kebutuhan privasi anda
 
 # ✌️ Extra ETC Command
 
+### ⛵ Docker context
+
+Saat extensi VSCode bermasalah kemungkinan docker menggunakan context yang salah maka anda dapat membenarkan pengaturan dengan cara
+
+Melihat context
+
+```
+docker context ls
+```
+
+Mengubah context
+
+```
+docker context use default 
+```
+
+Note: Jika anda menggunakan Podman pastikan DOCKER ENDPOINT yang dituju sama dengan yang tampil saat machine start 
+
 ### 😎 Nginx Command
 
 Buat symbolink nginx
