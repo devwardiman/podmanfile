@@ -12,6 +12,9 @@ RUN apk update && apk upgrade
 # Install bash, curl, unzip and supervisor
 RUN apk add --no-cache bash curl unzip supervisor
 
+# Add git, openssl and openssh
+RUN apk add --no-cache git openssl openssh-client
+
 # Install nginx, nodejs and npm
 RUN apk add --no-cache nginx nodejs-current npm
 
@@ -55,10 +58,7 @@ RUN mkdir /docker-entrypoint-initdb.d && \
 RUN mkdir -p /var/log/supervisor && \
     mkdir -p /var/log/nginx && \
     mkdir -p /etc/nginx/sites-available && \
-    mkdir -p /etc/nginx/sites-enabled && \
-    mkdir -p /var/www && \
-    mkdir -p /var/www/html && \
-    mkdir -p /var/volumes
+    mkdir -p /etc/nginx/sites-enabled
 
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 

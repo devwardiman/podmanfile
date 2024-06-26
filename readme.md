@@ -145,6 +145,14 @@ nginx -s reload
 
 Setelah selesai refresh browser kita. Jika halaman tidak berubah tekan kombinasi SHIFT + F5
 
+### 🔥 Untuk realtime edit kode di container
+
+Silahkan gunakan extensi [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+```
+https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
+```
+
 ### 🔥 Advance SSL Setup
 
 Untuk menggunakan ssl (port 443) kita membutuhkan sertifikat, kita bisa menjalankan perintah openssl self signed certificate untuk membuat sertifikat sendiri

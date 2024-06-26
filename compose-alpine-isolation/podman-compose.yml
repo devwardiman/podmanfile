@@ -10,10 +10,9 @@ services:
             - nodejs
             - mysql
         volumes:
-            - ../www:/var/www
             - ../etc/nginx/sites-available:/etc/nginx/sites-available
             - ../etc/nginx/ssl:/etc/nginx/ssl
-            - sites-volumes:/var/volumes
+            - sites-volumes:/var/www
         ports:
             - '80:80'
             # - '443:443'
@@ -22,7 +21,6 @@ services:
         extra_hosts:
             - localhost:127.0.0.1
             # - laravel.test:127.0.0.1
-        working_dir: /var/www
         networks:
             perakit_network:
                 # ipv4_address: 172.18.0.1
@@ -32,12 +30,10 @@ services:
             dockerfile: ./phpfpm.podmanfile
             # dockerfile: ./phpfpm-xdebug.podmanfile
         volumes:
-            - ../www:/var/www
             - ../etc/php/alpine-fpm-pool:/etc/php83/php-fpm.d
             # - ../etc/php/conf.d/xdebug.ini:/etc/php83/conf.d/docker-php-ext-xdebug.ini
             # - ../etc/php/conf.d/error_reporting.ini:/etc/php83/conf.d/error_reporting.ini
-            - sites-volumes:/var/volumes
-        working_dir: /var/www
+            - sites-volumes:/var/www
         ports:
             - '9000:9000'
             # - '9001:9001'
@@ -49,9 +45,7 @@ services:
             context: .
             dockerfile: ./nodejs.podmanfile
         volumes:
-            - ../www:/var/www
-            - sites-volumes:/var/volumes
-        working_dir: /var/www
+            - sites-volumes:/var/www
         # ports:
         #     - '5173:5173'
         networks:

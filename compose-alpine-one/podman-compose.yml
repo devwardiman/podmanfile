@@ -4,22 +4,20 @@ services:
     server:
         build: .
         volumes:
-            - ../www:/var/www
             - ../etc/nginx/sites-available:/etc/nginx/sites-available
             - ../etc/nginx/ssl:/etc/nginx/ssl
             - mysql-storage:/var/lib/mysql
-            - sites-volumes:/var/volumes
+            - sites-volumes:/var/www
         ports:
             - '80:80'
-            # - '443:443'
+            - '443:443'
             - '3306:3306'
             # - '5173:5173'
             # - '8080:8080'
             # - '8090:8090'
         extra_hosts:
             - localhost:127.0.0.1
-            # - laravel.test:127.0.0.1
-        working_dir: /var/www/html
+            - perakit.test:127.0.0.1
         environment:
             MYSQL_ROOT_PASSWORD: [Enter_root_password]
             MYSQL_DATABASE: [Enter_database_name]

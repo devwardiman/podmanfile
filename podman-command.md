@@ -160,3 +160,10 @@ Batalkan commit terbaru di local
 ```
 git reset HEAD~1
 ```
+
+### SSH
+```
+chmod 400 ~/.ssh/config
+sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 600 ~/.ssh/id_rsa.pub
+```
