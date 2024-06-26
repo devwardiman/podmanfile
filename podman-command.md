@@ -169,3 +169,41 @@ chmod 400 ~/.ssh/config
 chmod 600 ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa.pub
 ```
+
+### 🫛 Php Xdebug
+Untuk mengaktifkan Xdebug php silahkan masukkan perintah
+
+```
+php --ini
+```
+
+Kemudian cari configurasi file xdebug contoh: 
+
+```
+/etc/php83/conf.d/50_xdebug.ini,
+```
+
+Edit konten file tersebut dengan kode dibawah 
+
+```
+zend_extension=xdebug.so
+
+[xdebug]
+xdebug.mode=develop,coverage,debug,profile
+xdebug.idekey=MyVSCode
+xdebug.start_with_request=yes
+xdebug.log=/dev/stdout
+xdebug.log_level=0
+xdebug.client_port=9003
+xdebug.client_host=127.0.0.1
+```
+
+Setelah selesai di visual code silahkan download extensi [Xdebug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
+
+```
+https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug
+```
+
+Di VSCode pada sidebar Klik ikon _Run and Debug_ atau tekan (CTRL + SHIFT + D) setelah di menu nya klik _create a launch.json file_ kemudian pilih _php_ file launch.json akan terbuat automatis setelah itu langsung saja klik Klik tombol Play Hijau atau tekan F5 untuk menjalankan debug. 
+
+Note: Jangan lupa memberikan breakpoint untuk baris koding yang ingin di inspeksi.

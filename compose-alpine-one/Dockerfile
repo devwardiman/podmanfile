@@ -30,7 +30,8 @@ RUN apk add --no-cache php83 php83-cli php83-fpm \
     php83-zip php83-gd php83-dom \
     php83-session php83-simplexml php83-sqlite3 \
     php83-intl php83-xmlwriter php83-mysqli \
-    php83-exif php83-iconv php83-pecl-imagick
+    php83-exif php83-iconv php83-pecl-imagick \
+    php83-pecl-xdebug
 
 # Install Yarn globally
 RUN npm install --global yarn
