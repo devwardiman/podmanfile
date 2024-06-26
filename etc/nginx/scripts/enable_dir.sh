@@ -10,4 +10,4 @@ fi
 chmod -R 775 /var/www
 chown -R root:www-data /var/www
 
-tail 1500 -f /dev/null
+tail -f /dev/null

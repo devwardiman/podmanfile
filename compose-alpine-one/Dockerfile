@@ -77,4 +77,8 @@ RUN sed -i 's/;listen.owner = nobody/listen.owner = user/' /etc/php83/php-fpm.d/
 COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/supervisor/alpine.conf /etc/supervisord.conf
 
+# Echo commands into .bashrc
+RUN echo 'eval $(ssh-agent -s)' >> /root/.profile && \
+    echo 'eval $(ssh-agent -s)' >> /root/.bashrc
+
 ENTRYPOINT ["supervisord", "--configuration", "/etc/supervisord.conf"]

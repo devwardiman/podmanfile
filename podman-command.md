@@ -163,7 +163,9 @@ git reset HEAD~1
 
 ### SSH
 ```
+ssh-keygen -t ed25519 -C "your_email@example.com"
+touch ~/.ssh/config
 chmod 400 ~/.ssh/config
-sudo chmod 600 ~/.ssh/id_rsa
-sudo chmod 600 ~/.ssh/id_rsa.pub
+chmod 600 ~/.ssh/id_rsa
+chmod 600 ~/.ssh/id_rsa.pub
 ```
