@@ -4,6 +4,7 @@ services:
     server:
         build: .
         volumes:
+            - ../etc/supervisor/alpine.conf:/etc/supervisord.conf
             - ../etc/nginx/sites-available:/etc/nginx/sites-available
             - ../etc/nginx/ssl:/etc/nginx/ssl
             - mysql-storage:/var/lib/mysql
@@ -12,6 +13,7 @@ services:
             - '80:80'
             - '443:443'
             - '3306:3306'
+            - '8025:8025'
             # - '5173:5173'
             # - '8080:8080'
             # - '8090:8090'

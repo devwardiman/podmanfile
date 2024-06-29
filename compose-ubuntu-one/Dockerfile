@@ -74,9 +74,6 @@ RUN adduser -D user && \
 RUN chmod -R 775 /var/www && \
     chown -R user:www-data /var/www
 
-# Copy the Nginx configuration file into the container
-COPY --from=builder /app/supervisor/ubuntu.conf /etc/supervisord.conf
-
 # create symbolic link for default site available for nginx
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 

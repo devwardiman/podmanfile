@@ -41,6 +41,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
+# Install Mailpit
+RUN bash < <(curl -sL https://raw.githubusercontent.com/axllent/mailpit/develop/install.sh)
+
 # Clean up
 RUN rm -f /var/cache/apk/*
 
@@ -76,7 +79,6 @@ RUN sed -i 's/;listen.owner = nobody/listen.owner = user/' /etc/php83/php-fpm.d/
 
 # Copy the Nginx configuration file into the container
 COPY --from=builder /app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/supervisor/alpine.conf /etc/supervisord.conf
 
 # Echo commands into .bashrc
 RUN echo 'eval $(ssh-agent -s)' >> /root/.profile && \

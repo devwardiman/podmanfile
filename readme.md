@@ -153,6 +153,40 @@ Silahkan gunakan extensi [Dev Containers](https://marketplace.visualstudio.com/i
 https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
 ```
 
+### ✉️ Mailpit setup on Laravel
+
+Untuk mengatur mailpit di laravel ubah .env sesuai peraturan berikut:
+
+```
+MAIL_MAILER=smtp
+MAIL_HOST=localhost
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+Note : Setelah .env di atur seluruh email akan masuk ke mailpit untuk melihat dashboardnya klik link [http://localhost:8025](http://localhost:8025/)
+
+Untuk melakukan Test bisa menggunakan laravel tinker
+
+```
+php artisan tinker
+```
+
+Kemudian Masukkan
+
+```
+Mail::raw('This is a test email', function ($message) {
+    $message->to('recipient@example.com')
+            ->subject('Test Email');
+});
+```
+
+Setelah itu cek email di dashboard mailpit [http://localhost:8025](http://localhost:8025/)
+
 ### 🔥 Advance SSL Setup
 
 Untuk menggunakan ssl (port 443) kita membutuhkan sertifikat, kita bisa menjalankan perintah openssl self signed certificate untuk membuat sertifikat sendiri
@@ -199,4 +233,28 @@ setelah [podman-compose.yml](/compose-alpine-one/podman-compose.yml) kita simpan
 
 ```bash
 podman compose --file podman-compose.yml up -d
+```
+
+### 🚀 Supervisord
+
+Saat anda mengubah conf supervisord anda harus reread file conf dan update aplikasi supervisord agar conf tersebut dapat dibaca ulang
+
+- Reread the configuration files:
+
+```
+supervisorctl reread
+```
+This command scans for changes in the configuration files.
+
+- Update the configuration:
+
+```
+supervisorctl update
+```
+This command applies the changes, adding or removing programs as necessary, and restarts any affected programs12.
+
+- Restart all programs (if needed):
+
+```
+supervisorctl restart all
 ```

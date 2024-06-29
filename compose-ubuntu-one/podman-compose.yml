@@ -4,6 +4,7 @@ services:
     server:
         build: .
         volumes:
+            - ../etc/supervisor/ubuntu.conf:/etc/supervisord.conf
             - ../etc/nginx/sites-available:/etc/nginx/sites-available
             - ../etc/nginx/ssl:/etc/nginx/ssl
             - ../etc/php/ubuntu-fpm-pool:/etc/php/8.3/fpm/pool.d

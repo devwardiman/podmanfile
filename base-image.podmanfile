@@ -10,8 +10,5 @@ ADD /etc/nginx/scripts/ /app/nginx/scripts/
 # Copy the MariaDB configuration file into the container
 ADD /etc/mariadb/ /app/mariadb/
 
-# Copy the Supervisor configuration file into the container
-ADD /etc/supervisor/ /app/supervisor/
-
 # Set up working directory
 WORKDIR /app
