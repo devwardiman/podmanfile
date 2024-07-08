@@ -45,6 +45,8 @@ RUN apt-get install -y \
     php8.3-pgsql php8.3-shmop php8.3-soap \
     php8.3-sockets php8.3-sqlite3 php8.3-mysqli \
     php8.3-exif php8.3-iconv php8.3-imagick \
+    php8.3-pcntl php8.3-xmlreader php8.3-pdo_sqlite \
+    php8.3-posix php8.3-sodium \
     composer nodejs
 
 # Install Yarn globally
